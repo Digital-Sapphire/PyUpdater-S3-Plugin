@@ -1,0 +1,5 @@
+build/
+
+dist/
+
+PyiUpdater_s3_Plugin.egg-info/
