@@ -37,13 +37,8 @@ except ImportError:
         boto = None
 from jms_utils.paths import ChDir
 
-try:
-    from pyi_updater.uploader.common import BaseUploader
-except ImportError:
-    from pyi_updater.uploader import BaseUploader
-
-from pyi_updater.exceptions import UploaderError
-
+from pyupdater.uploader import BaseUploader
+from pyupdater.utils.exceptions import UploaderError
 
 log = logging.getLogger(__name__)
 
@@ -57,15 +52,15 @@ class S3Uploader(BaseUploader):
 
     def init(self, **kwargs):
         self.file_list = kwargs.get(u'files', [])
-        a_key = os.environ.get(u'PYIU_AWS_ID')
+        a_key = os.environ.get(u'PYU_AWS_ID')
         if a_key is None:
-            raise UploaderError('Missing PYI_AWS_ID')
+            raise UploaderError('Missing PYU_AWS_ID')
         self.access_key = a_key
-        s_key = os.environ.get(u'PYIU_AWS_SECRET')
+        s_key = os.environ.get(u'PYU_AWS_SECRET')
         if s_key is None:
-            raise UploaderError(u'Missing PYIU_AWS_SECRET')
+            raise UploaderError(u'Missing PYU_AWS_SECRET')
         self.secret_key = s_key
-        self.bucket_name = os.environ.get(u'PYIU_AWS_BUCKET')
+        self.bucket_name = os.environ.get(u'PYU_AWS_BUCKET')
         bucket_name = kwargs.get(u'object_bucket')
         if bucket_name is not None:
             self.bucket_name = bucket_name
