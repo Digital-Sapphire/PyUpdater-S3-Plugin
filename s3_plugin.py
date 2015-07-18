@@ -76,8 +76,7 @@ class S3Uploader(BaseUploader):
         """Connects client attribute to S3"""
         session = Session(aws_access_key_id=self.access_key,
                           aws_secret_access_key=self.secret_key,
-                          region_name='us-west-2',
-                          debug=False)
+                          region_name='us-west-2')
 
         self.s3 = session.resource('s3')
 
