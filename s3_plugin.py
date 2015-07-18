@@ -62,6 +62,16 @@ class S3Uploader(BaseUploader):
             raise UploaderError(u'Bucket name is not set')
         self._connect()
 
+    # ToDo: Remove in v2.0
+    def _connect(self):
+        self.connect()
+    # End ToDo
+
+    # ToDo: Remove in v2.0
+    def _upload_file(self, filename):
+        self.upload_file(self, filename)
+    # End ToDo
+
     def connect(self):
         """Connects client attribute to S3"""
         session = Session(aws_access_key_id=self.access_key,
