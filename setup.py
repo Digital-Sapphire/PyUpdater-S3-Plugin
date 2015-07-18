@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='PyUpdater-s3-Plugin',
-    version='2.3',
+    version='2.4',
 
     description='Amazon s3 plugin for PyiUpdater',
 

@@ -60,17 +60,7 @@ class S3Uploader(BaseUploader):
             self.bucket_name = bucket_name
         if self.bucket_name is None:
             raise UploaderError(u'Bucket name is not set')
-        self._connect()
-
-    # ToDo: Remove in v2.0
-    def _connect(self):
         self.connect()
-    # End ToDo
-
-    # ToDo: Remove in v2.0
-    def _upload_file(self, filename):
-        self.upload_file(self, filename)
-    # End ToDo
 
     def connect(self):
         """Connects client attribute to S3"""
