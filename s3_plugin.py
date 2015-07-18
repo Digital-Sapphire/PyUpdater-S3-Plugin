@@ -78,7 +78,7 @@ class S3Uploader(BaseUploader):
                           aws_secret_access_key=self.secret_key,
                           region_name='us-west-2')
 
-        self.s3 = session.resource('s3')
+        self.s3 = session.client('s3')
 
     def upload_file(self, filename):
         """Uploads a single file to S3
