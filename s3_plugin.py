@@ -25,16 +25,10 @@
 import logging
 import os
 import sys
+import threading
 
-try:
-    from boto3.s3.connection import S3Connection
-except ImportError:
-    boto3 = None
-    try:
-        from boto.s3.connection import S3Connection
-        from boto.s3.key import Key
-    except ImportError:
-        boto = None
+from boto3.session import Session
+
 from jms_utils.paths import ChDir
 
 from pyupdater.uploader import BaseUploader
@@ -68,23 +62,14 @@ class S3Uploader(BaseUploader):
             raise UploaderError(u'Bucket name is not set')
         self._connect()
 
-    # ToDo: Remove in v2.0
-    def _connect(self):
-        self.connect()
-    # End ToDo
-
     def connect(self):
         """Connects client attribute to S3"""
-        self.s3 = S3Connection(aws_access_key_id=self.access_key,
-                               aws_secret_access_key=self.secret_key,
-                               debug=False)
-        bucket = self.s3.get_bucket(self.bucket_name)
-        self.client = Key(bucket)
+        session = Session(aws_access_key_id=self.access_key,
+                          aws_secret_access_key=self.secret_key,
+                          region_name='us-west-2',
+                          debug=False)
 
-    # ToDo: Remove in v2.0
-    def _upload_file(self, filename):
-        self.upload_file(self, filename)
-    # End ToDo
+        self.s3 = session.resource('s3')
 
     def upload_file(self, filename):
         """Uploads a single file to S3
@@ -100,20 +85,35 @@ class S3Uploader(BaseUploader):
                 False - Upload Failed
         """
         with ChDir(self.deploy_dir):
-            self.client.key = filename
             try:
-                self.client.set_contents_from_filename(filename,
-                                                       cb=self.s3_progress)
-                self.client.make_public()
+                self.client.upload_file(filename, self.bucket, filename,
+                                        extra_args={'ACL': 'public-read'},
+                                        callback=ProgressPercentage(filename))
                 log.debug('Uploaded {}'.format(filename))
                 os.remove(filename)
                 return True
             except Exception as e:
-                log.error(str(e), exc_info=True)
+                log.error('Failed to upload file')
+                log.debug(str(e), exc_info=True)
                 self._connect()
                 return False
 
-    def s3_progress(self, current, total):
-        percent = float(current) / total * 100
-        sys.stdout.write('\r%.1f' % percent)
-        sys.stdout.flush()
+
+class ProgressPercentage(object):
+
+    def __init__(self, filename):
+        self._filename = filename
+        self._size = float(os.path.getsize(filename))
+        self._seen_so_far = 0
+        self._lock = threading.Lock()
+
+    def __call__(self, filename, bytes_amount):
+        # To simplify we'll assume this is hooked up
+        # to a single filename.
+        with self._lock:
+            self._seen_so_far += bytes_amount
+            percentage = (self._seen_so_far / self._size) * 100
+            sys.stdout.write(
+                "\r%s  %s / %s  (%.2f%%)" % (filename, self._seen_so_far,
+                                             self._size, percentage))
+            sys.stdout.flush()
