@@ -95,7 +95,7 @@ class S3Uploader(BaseUploader):
         """
         with ChDir(self.deploy_dir):
             try:
-                self.s3.upload_file(filename, self.bucket, filename,
+                self.s3.upload_file(filename, self.bucket_name, filename,
                                     extra_args={'ACL': 'public-read'},
                                     callback=ProgressPercentage(filename))
                 log.debug('Uploaded {}'.format(filename))
