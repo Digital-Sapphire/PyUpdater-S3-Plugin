@@ -20,8 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Really Ugly Imports
-# Suggestions welcome
+
 import logging
 import os
 import sys
@@ -37,8 +36,6 @@ from pyupdater.utils.exceptions import UploaderError
 log = logging.getLogger(__name__)
 
 
-# TODO: figure out how to upload files
-# deeper then just the root directory
 class S3Uploader(BaseUploader):
 
     def __init__(self):
@@ -46,26 +43,21 @@ class S3Uploader(BaseUploader):
 
     def init(self, **kwargs):
         self.file_list = kwargs.get(u'files', [])
-        a_key = os.environ.get(u'PYU_AWS_ID')
-        if a_key is None:
+        access_key = os.environ.get(u'PYU_AWS_ID')
+        if access_key is None:
             raise UploaderError('Missing PYU_AWS_ID')
-        self.access_key = a_key
-        s_key = os.environ.get(u'PYU_AWS_SECRET')
-        if s_key is None:
+        secret_key = os.environ.get(u'PYU_AWS_SECRET')
+        if secret_key is None:
             raise UploaderError(u'Missing PYU_AWS_SECRET')
-        self.secret_key = s_key
         self.bucket_name = os.environ.get(u'PYU_AWS_BUCKET')
         bucket_name = kwargs.get(u'object_bucket')
         if bucket_name is not None:
             self.bucket_name = bucket_name
         if self.bucket_name is None:
             raise UploaderError(u'Bucket name is not set')
-        self.connect()
 
-    def connect(self):
-        """Connects client attribute to S3"""
-        session = Session(aws_access_key_id=self.access_key,
-                          aws_secret_access_key=self.secret_key,
+        session = Session(aws_access_key_id=access_key,
+                          aws_secret_access_key=secret_key,
                           region_name='us-west-2')
 
         self.s3 = session.client('s3')
@@ -94,7 +86,7 @@ class S3Uploader(BaseUploader):
             except Exception as e:
                 log.error('Failed to upload file')
                 log.debug(str(e), exc_info=True)
-                self._connect()
+                self.connect()
                 return False
 
 
