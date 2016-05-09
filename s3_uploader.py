@@ -64,7 +64,9 @@ class S3Uploader(BaseUploader):
         self.s3 = session.client('s3')
 
     def set_config(self, config):
-        bucket_name = self.get_answer('Please enter a bucket name')
+        bucket_name = config.get('bucket_name')
+        bucket_name = self.get_answer('Please enter a bucket name',
+                                      default=bucket_name)
         config['bucket_name'] = bucket_name
 
     def upload_file(self, filename):
