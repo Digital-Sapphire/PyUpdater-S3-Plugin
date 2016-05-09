@@ -42,20 +42,23 @@ class S3Uploader(BaseUploader):
     def init_config(self, config):
         access_key = os.environ.get(u'PYU_AWS_ID')
         if access_key is None:
-            raise UploaderError('Missing PYU_AWS_ID')
+            raise UploaderError('Missing PYU_AWS_ID',
+                                expected=True)
         secret_key = os.environ.get(u'PYU_AWS_SECRET')
         if secret_key is None:
-            raise UploaderError(u'Missing PYU_AWS_SECRET')
+            raise UploaderError(u'Missing PYU_AWS_SECRET',
+                                expected=True)
         # Try to get bucket from env var
         self.bucket_name = os.environ.get(u'PYU_AWS_BUCKET')
-        bucket_name = config.get(u'object_bucket')
+        bucket_name = config.get(u'bucket_name')
         # If there is a bucket name in the repo config we
         # override the env var
         if bucket_name is not None:
             self.bucket_name = bucket_name
         # If nothing is set throw an error
         if self.bucket_name is None:
-            raise UploaderError(u'Bucket name is not set')
+            raise UploaderError(u'Bucket name is not set',
+                                expected=True)
 
         session = Session(aws_access_key_id=access_key,
                           aws_secret_access_key=secret_key,
