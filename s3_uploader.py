@@ -40,12 +40,12 @@ class S3Uploader(BaseUploader):
     author = 'Digital Sapphire'
 
     def init_config(self, config):
-        access_key = os.environ.get(u'PYU_AWS_ID')
-        if access_key is None:
+        self.access_key = os.environ.get(u'PYU_AWS_ID')
+        if self.access_key is None:
             raise UploaderError('Missing PYU_AWS_ID',
                                 expected=True)
-        secret_key = os.environ.get(u'PYU_AWS_SECRET')
-        if secret_key is None:
+        self.secret_key = os.environ.get(u'PYU_AWS_SECRET')
+        if self.secret_key is None:
             raise UploaderError(u'Missing PYU_AWS_SECRET',
                                 expected=True)
         # Try to get bucket from env var
@@ -59,9 +59,11 @@ class S3Uploader(BaseUploader):
         if self.bucket_name is None:
             raise UploaderError(u'Bucket name is not set',
                                 expected=True)
+        self._connect()
 
-        session = Session(aws_access_key_id=access_key,
-                          aws_secret_access_key=secret_key,
+    def _connect(self):
+        session = Session(aws_access_key_id=self.access_key,
+                          aws_secret_access_key=self.secret_key,
                           region_name='us-west-2')
 
         self.s3 = session.client('s3')
@@ -91,9 +93,10 @@ class S3Uploader(BaseUploader):
                                 Callback=ProgressPercentage(filename))
             log.debug('Uploaded {}'.format(filename))
             return True
-        except Exception as e:
+        except Exception as err:
             log.error('Failed to upload file')
-            log.debug(str(e), exc_info=True)
+            log.debug(err, exc_info=True)
+            self._connect()
             return False
 
 
