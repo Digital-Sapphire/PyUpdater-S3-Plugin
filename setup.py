@@ -2,11 +2,11 @@ from setuptools import setup
 
 setup(
     name='PyUpdater-s3-Plugin',
-    version='3.0',
+    version='3.0.2',
     description='Amazon S3 plugin for PyUpdater',
-    author='JohnyMoSwag',
-    author_email='johnymoswag@gmail.com',
-    url='https://github.com/JohnyMoSwag/PyUpdater-s3-Plugin',
+    author='Digital Sapphire',
+    author_email='info@digitalsapphire.io',
+    url='https://github.com/JMSwag/PyUpdater-s3-Plugin',
     classifiers=['Development Status :: 5 - Production/Stable',
                  'License :: OSI Approved :: MIT License',
                  'Programming Language :: Python :: 2.7',
@@ -18,8 +18,13 @@ setup(
         'boto3',
         'jms-utils >= 1.0.1',
         ],
-    packages=['s3_plugin'],
+    provides=['pyupdater.plugins',],
+    entry_points={
+        'pyupdater.plugins': [
+            's3 = s3_uploader:S3Uploader',
+        ],
+    },
+    py_modules=['s3_uploader'],
     include_package_data=True,
-    namespace_packages = ['pyupdater.plugins'],
     zip_safe=False,
 )

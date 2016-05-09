@@ -28,8 +28,6 @@ import threading
 
 from boto3.session import Session
 
-from jms_utils.paths import ChDir
-
 from pyupdater.uploader import BaseUploader
 from pyupdater.utils.exceptions import UploaderError
 
@@ -37,6 +35,9 @@ log = logging.getLogger(__name__)
 
 
 class S3Uploader(BaseUploader):
+
+    name = 'S3'
+    author = 'Digital Sapphire'
 
     def init_config(self, config):
         access_key = os.environ.get(u'PYU_AWS_ID')
