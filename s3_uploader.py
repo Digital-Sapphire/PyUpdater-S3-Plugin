@@ -50,7 +50,6 @@ class S3Uploader(BaseUploader):
                                 expected=True)
         # Try to get bucket from env var
         self.bucket_name = os.environ.get(u'PYU_AWS_BUCKET')
-        print config
         bucket_name = config.get(u'bucket_name')
         # If there is a bucket name in the repo config we
         # override the env var
