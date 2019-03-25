@@ -31,17 +31,21 @@ setup(
     author='Digital Sapphire',
     author_email='info@digitalsapphire.io',
     url='https://github.com/JMSwag/PyUpdater-s3-Plugin',
-    classifiers=['Development Status :: 5 - Production/Stable',
-                 'License :: OSI Approved :: MIT License',
-                 'Programming Language :: Python :: 2.7',
-                 'Intended Audience :: Developers',
-                 'Environment :: Console',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Intended Audience :: Developers',
+        'Environment :: Console',
                  ],
     platforms=['Any'],
     install_requires=[
         'boto3',
         ],
-    provides=['pyupdater.plugins',],
+    provides=['pyupdater.plugins', ],
     entry_points={
         'pyupdater.plugins': [
             's3 = s3_uploader:S3Uploader',

@@ -1,5 +1,6 @@
 register:
-	python setup.py register -r pypi
+	twine register
 
 upload:
-	twine upload dist/*
+	python setup.py sdist
+	twine upload --verbose dist/*
