@@ -43,7 +43,7 @@ setup(
                  ],
     platforms=['Any'],
     install_requires=[
-        'boto3',
+        'boto3>=1.8.0',
         ],
     provides=['pyupdater.plugins', ],
     entry_points={

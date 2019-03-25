@@ -17,7 +17,7 @@ Optional - If set will be used globally. Will be overwritten when you add scp se
 
 | Variable              | Meaning                                 |
 | --------------------- |---------------------------------------- |
-| PYIU_AWS_ID           | Your amazon api id                      |
-| PYIU_AWS_SECRET       | You amazon api secret                   |
+| PYU_AWS_ID           | Your amazon api id                      |
+| PYU_AWS_SECRET       | You amazon api secret                   |
 | PYU_AWS_SESSION_TOKEN | You amazon api session token (optional) |
-| PYIU_AWS_BUCKET       | Bucket name (optional)                  |
+| PYU_AWS_BUCKET       | Bucket name (optional)                  |
