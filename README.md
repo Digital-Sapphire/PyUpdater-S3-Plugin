@@ -21,12 +21,3 @@ Optional - If set will be used globally. Will be overwritten when you add scp se
 | PYIU_AWS_SECRET       | You amazon api secret                   |
 | PYU_AWS_SESSION_TOKEN | You amazon api session token (optional) |
 | PYIU_AWS_BUCKET       | Bucket name (optional)                  |
-
-
-## Changes
-
-* v1.1
-
-    - Updated
-
-        Compat with PyUpdater 0.19+
