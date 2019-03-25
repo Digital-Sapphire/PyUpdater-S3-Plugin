@@ -7,3 +7,5 @@ PyiUpdater_s3_Plugin.egg-info/
 PyUpdater_s3_Plugin.egg-info/*
 
 *.pyc
+
+.idea
