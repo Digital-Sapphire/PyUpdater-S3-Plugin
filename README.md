@@ -15,11 +15,12 @@ System environmental variables
 
 Optional - If set will be used globally. Will be overwritten when you add scp settings during pyupdater init
 
-| Variable      | Meaning        |
-| ------------- |-------------|
-| PYIU_AWS_ID   | Your amazon api id |
-| PYIU_AWS_SECRET      | You amazon api secret   |
-| PYIU_AWS_BUCKET | Bucket name (optional)|
+| Variable              | Meaning                                 |
+| --------------------- |---------------------------------------- |
+| PYIU_AWS_ID           | Your amazon api id                      |
+| PYIU_AWS_SECRET       | You amazon api secret                   |
+| PYU_AWS_SESSION_TOKEN | You amazon api session token (optional) |
+| PYIU_AWS_BUCKET       | Bucket name (optional)                  |
 
 
 ## Changes

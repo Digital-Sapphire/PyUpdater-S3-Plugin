@@ -48,6 +48,7 @@ class S3Uploader(BaseUploader):
         if self.secret_key is None:
             raise UploaderError(u'Missing PYU_AWS_SECRET',
                                 expected=True)
+        self.session_token = os.environ.get(u'PYU_AWS_SESSION_TOKEN')
         # Try to get bucket from env var
         self.bucket_name = os.environ.get(u'PYU_AWS_BUCKET')
         bucket_name = config.get(u'bucket_name')
@@ -64,6 +65,7 @@ class S3Uploader(BaseUploader):
     def _connect(self):
         session = Session(aws_access_key_id=self.access_key,
                           aws_secret_access_key=self.secret_key,
+                          aws_session_token=self.session_token,
                           region_name='us-west-2')
 
         self.s3 = session.client('s3')
