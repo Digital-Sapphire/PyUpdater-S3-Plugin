@@ -26,7 +26,7 @@ from setuptools import setup
 
 setup(
     name='PyUpdater-s3-Plugin',
-    version='3.0.7',
+    version='4.0.0',
     description='Amazon S3 plugin for PyUpdater',
     author='Digital Sapphire',
     author_email='info@digitalsapphire.io',
@@ -39,15 +39,12 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Intended Audience :: Developers',
-        'Environment :: Console',
+        'Environment :: Console'
                  ],
     platforms=['Any'],
-    install_requires=[
-        'boto3>=1.8.0',
-        ],
-    provides=['pyupdater.plugins', ],
+    install_requires=['boto3>=1.8.0'],
     entry_points={
-        'pyupdater.plugins': [
+        'pyupdater.plugins.upload': [
             's3 = s3_uploader:S3Uploader',
         ],
     },

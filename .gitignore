@@ -9,3 +9,5 @@ PyUpdater_s3_Plugin.egg-info/*
 *.pyc
 
 .idea
+
+.DS_Store
