@@ -32,7 +32,7 @@ with open('README.md', 'r') as f:
 
 
 setup(
-    name='PyUpdater-s3-Plugin',
+    name='PyUpdater-S3-Plugin',
     version=versioneer.get_version(),
     description='Amazon S3 plugin for PyUpdater',
     long_description=readme,
