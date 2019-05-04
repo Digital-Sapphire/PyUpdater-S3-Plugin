@@ -31,7 +31,11 @@ import threading
 
 from boto3.session import Session
 
-from pyupdater.uploader import BaseUploader
+try:
+    from pyupdater.core.uploader import BaseUploader
+except ImportError:  # PyUpdater <3.0
+    from pyupdater.uploader import BaseUploader
+
 from pyupdater.utils.exceptions import UploaderError
 
 log = logging.getLogger(__name__)

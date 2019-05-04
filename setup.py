@@ -42,7 +42,7 @@ setup(
         'Environment :: Console'
                  ],
     platforms=['Any'],
-    install_requires=['boto3>=1.8.0'],
+    install_requires=['boto3>=1.9.0'],
     entry_points={
         'pyupdater.plugins.upload': [
             's3 = s3_uploader:S3Uploader',
