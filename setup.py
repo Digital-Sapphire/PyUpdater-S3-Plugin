@@ -24,10 +24,19 @@
 # ------------------------------------------------------------------------------
 from setuptools import setup
 
+import versioneer
+
+
+with open('README.md', 'r') as f:
+    readme = f.read()
+
+
 setup(
     name='PyUpdater-s3-Plugin',
-    version='4.0.0',
+    version=versioneer.get_version(),
     description='Amazon S3 plugin for PyUpdater',
+    long_description=readme,
+    long_description_content_type='text/markdown',
     author='Digital Sapphire',
     author_email='info@digitalsapphire.io',
     url='https://github.com/JMSwag/PyUpdater-s3-Plugin',

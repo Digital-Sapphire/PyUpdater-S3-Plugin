@@ -1,0 +1,3 @@
+twine
+versioneer==0.18
+wheel
