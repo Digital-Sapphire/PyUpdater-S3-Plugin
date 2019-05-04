@@ -13,7 +13,7 @@ PyUpdater upload plugin for AWS S3
 
 System environmental variables
 
-Optional - If set will be used globally. Will be overwritten when you add scp settings during pyupdater init
+Optional - If set will be used globally. Will be overwritten when you add S3 settings during pyupdater init
 
 | Variable              | Meaning                                 |
 | --------------------- |---------------------------------------- |
