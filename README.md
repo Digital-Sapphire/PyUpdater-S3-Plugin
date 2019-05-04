@@ -1,4 +1,4 @@
-[![PyPI version](https://badge.fury.io/py/PyUpdater-S3-Plugin.svg)](http://badge.fury.io/py/PyUpdater-S3-Plugin)
+[![PyPI version](https://badge.fury.io/py/PyUpdater-S3-Plugin.svg)](https://badge.fury.io/py/PyUpdater-S3-Plugin)
 
 # PyUpdater S3 plugin
 
