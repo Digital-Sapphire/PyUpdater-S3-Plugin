@@ -102,7 +102,8 @@ class S3Uploader(BaseUploader):
                 False - Upload Failed
         """
         try:
-            self.s3.upload_file(filename, self.bucket_name, filename,
+            self.s3.upload_file(filename, self.bucket_name,
+                                os.path.basename(filename),
                                 ExtraArgs={'ACL': 'public-read'},
                                 Callback=ProgressPercentage(filename))
             log.debug('Uploaded {}'.format(filename))
