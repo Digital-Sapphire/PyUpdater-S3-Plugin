@@ -21,5 +21,5 @@ Optional - If set will be used globally. Will be overwritten when you add S3 set
 | PYU_AWS_SECRET        | You amazon api secret                   |
 | PYU_AWS_SESSION_TOKEN | You amazon api session token (optional) |
 | PYU_AWS_BUCKET        | Bucket name (optional)                  |
-| PYU_AWS_REGION        | AWS Bucket Region (optional)            |
+| PYU_AWS_BUCKET_REGION | AWS Bucket Region (optional)            |
 | PYU_AWS_BUCKET_KEY    | AWS Bucket Key (optional)               |
