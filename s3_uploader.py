@@ -72,21 +72,68 @@ class S3Uploader(BaseUploader):
         if self.bucket_name is None:
             raise UploaderError(u'Bucket name is not set',
                                 expected=True)
+
+        # Try to get bucket key from env var
+        self.bucket_key = os.environ.get(u'PYU_AWS_BUCKET_KEY')
+        bucket_key = config.get(u'bucket_key')
+
+        # If there is a bucket key in the repo config we
+        # override the env var
+        if bucket_key is not None:
+            self.bucket_key = bucket_key
+
+        # If nothing is set default to bucket root
+        if self.bucket_key is None:
+            self.bucket_key = ''
+
+        # Strip slashes for sanity
+        self.bucket_key = self.bucket_key.rstrip('/\\').lstrip('/\\')
+
+        # Try to get bucket region
+        self.bucket_region = os.environ.get(u'PYU_AWS_BUCKET_REGION')
+        bucket_region = config.get(u'bucket_region')
+
+        # If there is a bucket key in the repo config we
+        # override the env var
+        if bucket_region is not None:
+            self.bucket_region = bucket_region
+
+        # If nothing is set default to bucket root
+        if self.bucket_region is None:
+            self.bucket_region = 'us-west-2'
+
         self._connect()
 
     def _connect(self):
-        session = Session(aws_access_key_id=self.access_key,
-                          aws_secret_access_key=self.secret_key,
-                          aws_session_token=self.session_token,
-                          region_name='us-west-2')
-
+        session = Session(
+            aws_access_key_id=self.access_key,
+            aws_secret_access_key=self.secret_key,
+            aws_session_token=self.session_token,
+            region_name=self.bucket_region
+        )
         self.s3 = session.client('s3')
 
     def set_config(self, config):
         bucket_name = config.get('bucket_name')
-        bucket_name = self.get_answer('Please enter a bucket name',
-                                      default=bucket_name)
+        bucket_name = self.get_answer(
+            'Please enter a bucket name',
+            default=bucket_name
+        )
         config['bucket_name'] = bucket_name
+
+        bucket_key = config.get('bucket_key')
+        bucket_key = self.get_answer(
+            'Please enter a bucket key',
+            default=bucket_key
+        )
+        config['bucket_key'] = bucket_key
+
+        bucket_region = config.get('bucket_region')
+        bucket_region = self.get_answer(
+            'Please enter a bucket region',
+            default=bucket_region
+        )
+        config['bucket_region'] = bucket_region
 
     def upload_file(self, filename):
         """Uploads a single file to S3
@@ -102,16 +149,24 @@ class S3Uploader(BaseUploader):
                 False - Upload Failed
         """
         try:
-            self.s3.upload_file(filename, self.bucket_name,
-                                os.path.basename(filename),
-                                ExtraArgs={'ACL': 'public-read'},
-                                Callback=ProgressPercentage(filename))
+            self.s3.upload_file(
+                filename,
+                self.bucket_name,
+                self.bucket_key + '/' + os.path.basename(filename),  # Concatenate bucket_key with filename
+                ExtraArgs={'ACL': 'public-read'},
+                Callback=ProgressPercentage(filename)
+            )
+
             log.debug('Uploaded {}'.format(filename))
+
             return True
+
         except Exception as err:
             log.error('Failed to upload file')
             log.debug(err, exc_info=True)
+
             self._connect()
+
             return False
 
 
