@@ -39,7 +39,7 @@ setup(
     long_description_content_type='text/markdown',
     author='Digital Sapphire',
     author_email='info@digitalsapphire.io',
-    url='https://github.com/JMSwag/PyUpdater-s3-Plugin',
+    url='https://github.com/DigitalSapphire/PyUpdater-s3-Plugin',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
