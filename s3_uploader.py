@@ -148,11 +148,15 @@ class S3Uploader(BaseUploader):
 
                 False - Upload Failed
         """
+        if self.bucket_key is None:
+            key = os.path.basename(filename)
+        else:
+            key = self.bucket_key + '/' + os.path.basename(filename)
         try:
             self.s3.upload_file(
                 filename,
                 self.bucket_name,
-                self.bucket_key + '/' + os.path.basename(filename),  # Concatenate bucket_key with filename
+                key,
                 ExtraArgs={'ACL': 'public-read'},
                 Callback=ProgressPercentage(filename)
             )
