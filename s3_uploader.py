@@ -148,7 +148,7 @@ class S3Uploader(BaseUploader):
 
                 False - Upload Failed
         """
-        if self.bucket_key is None:
+        if not self.bucket_key:
             key = os.path.basename(filename)
         else:
             key = self.bucket_key + '/' + os.path.basename(filename)
