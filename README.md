@@ -15,7 +15,7 @@ System environmental variables
 
 Optional - If set will be used globally. Will be overwritten when you add S3 settings during pyupdater init
 
-| Variable              | Meaning                                 |
+| Env Var              | Meaning                                 |
 | --------------------- |---------------------------------------- |
 | PYU_AWS_ID            | Your amazon api id                      |
 | PYU_AWS_SECRET        | You amazon api secret                   |
