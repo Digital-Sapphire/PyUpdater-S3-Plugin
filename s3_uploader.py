@@ -102,7 +102,7 @@ class S3Uploader(BaseUploader):
         if self.bucket_region is None:
             self.bucket_region = 'us-west-2'
             
-        self.endpoint_url = os.environ.get(u'AWS_ENDPOINT_URL')
+        self.endpoint_url = os.environ.get(u'PYU_AWS_ENDPOINT_URL')
         endpoint_url = config.get(u'endpoint_url')
         
         if endpoint_url is not None:
