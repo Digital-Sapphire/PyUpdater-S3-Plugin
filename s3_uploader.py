@@ -112,18 +112,18 @@ class S3Uploader(BaseUploader):
 
     def _connect(self):
         
-        session_kwargs = dict(
+        session = Session(            
             aws_access_key_id=self.access_key,
             aws_secret_access_key=self.secret_key,
             aws_session_token=self.session_token,
             region_name=self.bucket_region
         )
         
+        client_kwargs = dict()
         if self.endpoint_url is not None:
-            session_kwargs['endpoint_url'] = self.endpoint_url
+            client_kwargs['endpoint_url'] = self.endpoint_url
             
-        session = Session(**session_kwargs)
-        self.s3 = session.client('s3')
+        self.s3 = session.client('s3', **client_kwargs)
 
     def set_config(self, config):
         bucket_name = config.get('bucket_name')
