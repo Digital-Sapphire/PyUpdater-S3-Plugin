@@ -148,7 +148,7 @@ class S3Uploader(BaseUploader):
         config['bucket_region'] = bucket_region
         
         endpoint_url = config.get('endpoint_url')
-        endpoint_url = self.get_anwser(
+        endpoint_url = self.get_answer(
             'Please enter an endpoint url',
             default=endpoint_url
         )
