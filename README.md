@@ -23,3 +23,4 @@ Optional - If set will be used globally. Will be overwritten when you add S3 set
 | PYU_AWS_BUCKET        | Bucket name (optional)                  |
 | PYU_AWS_BUCKET_REGION | AWS Bucket Region (optional)            |
 | PYU_AWS_BUCKET_KEY    | AWS Bucket Key (optional)               |
+| PYU_AWS_ENDPOINT_URL  | AWS Endpoint URL (optional)             |
